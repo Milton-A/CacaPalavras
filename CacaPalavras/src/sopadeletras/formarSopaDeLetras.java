@@ -1,5 +1,6 @@
 package sopadeletras;
 
+import cacapalavras.procurarPalavras;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -12,7 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class formarSopaDeLetras {
 
-    private static int linhaMatriz, colunaMatriz;
+    public static int linhaMatriz, colunaMatriz;
+    public static  char[][] cacaPalavraMatriz = criarCacaPalavras();
     public static int numeroPalavras;
     public static ArrayList listaPalavras = new ArrayList();
 
@@ -43,7 +45,6 @@ public class formarSopaDeLetras {
     }
 
     public static void imprimirCacaPalavras() {
-        char[][] cacaPalavraMatriz = criarCacaPalavras();
         String strCacaPalavras = "", strNumerodePalavras;
         for (int i = 0; i < linhaMatriz; i++) {
             for (int j = 0; j < colunaMatriz; j++) {
@@ -57,5 +58,10 @@ public class formarSopaDeLetras {
                 + "\t Insira o numero de Letras para procurar\n");
         numeroPalavras = Integer.parseInt(strNumerodePalavras);
         listaPalavras = inserirPalavras.inserirPalavras(numeroPalavras);
+        procurarPalavras procurarPalavra = new procurarPalavras();
+        procurarPalavra.verificaNoCacaPalavra();
+        JOptionPane.showMessageDialog(null,"==== Localização =====\n"
+                + procurarPalavra.linhadoElementoQueConsta+" "+procurarPalavra.colunadoElementoQueConsta);
+
     }
 }
