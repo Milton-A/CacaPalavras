@@ -1,3 +1,4 @@
+
 package sopadeletras;
 
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class inserirPalavras {
         ArrayList listaPalavras = new ArrayList();
         String palavra;
         for (int i = 0; i < tamanhoListaPalavras; i++) {
-            palavra = JOptionPane.showInputDialog("Insira a " + i + "ª Palavra");
+            palavra = JOptionPane.showInputDialog("Insira a " + (i +1)+ "ª Palavra");
              listaPalavras.add(palavra);
         }
         return listaPalavras;

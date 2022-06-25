@@ -18,7 +18,8 @@ public class main {
             strOpcao = JOptionPane.showInputDialog(""
                     + "=======  Caça Palavras =======\n"
                     + "1 - Inserir Palavras\n"
-                    + "2 - Carregar palavras do ficheiro\n");
+                    + "2 - Carregar palavras do ficheiro\n"
+                    + "0 - Sair");
             menuOpcao = Integer.parseInt(strOpcao);
 
             switch (menuOpcao) {
@@ -27,13 +28,13 @@ public class main {
                     jogar();
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "**Primeiro! \nCriar um (palavras.txt) no ambiente de trabalho\n"
+                    JOptionPane.showMessageDialog(null, "**Primeiro! \nCriar um (palavras.txt) no directorio do projecto \n"
                             + "Escrever as palavras no ficheiro\n"
                             + "E depois salvar");
                     do {
                         strOpcao = JOptionPane.showInputDialog(""
                                 + "=======  Carregar palavras do ficheiro =======\n\n"
-                                + "\t\t 1 - OK\n"
+                                + "\t\t 1 - Tudo Pronto!\n"
                                 + "\t\t 2 - Voltar ");
                         menuOpcaoFicheiro = Integer.parseInt(strOpcao);
 
@@ -47,9 +48,8 @@ public class main {
                     break;
 
                 default:
-                    throw new AssertionError();
+                    System.out.println("Saindo...");
             }
-
         } while (menuOpcao != 0);
     }
 
@@ -64,16 +64,15 @@ public class main {
             switch (menuOpcao) {
                 case 1:
                     formarSopaDeLetras.imprimirCacaPalavras();
-                    
                     break;
                 case 2:
                     
                     break;
 
                 default:
-                    throw new AssertionError();
+                    System.out.println("Saindo...");
             }
 
-        } while (menuOpcao != 0);
+        } while (menuOpcao != 2);
     }
 }

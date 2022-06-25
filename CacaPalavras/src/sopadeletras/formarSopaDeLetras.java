@@ -1,6 +1,5 @@
 package sopadeletras;
 
-import cacapalavras.procurarPalavras;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -13,10 +12,9 @@ import javax.swing.JOptionPane;
  */
 public class formarSopaDeLetras {
 
-    public static int linhaMatriz, colunaMatriz;
+    private static int linhaMatriz, colunaMatriz;
     public static int numeroPalavras;
-    public static char[][] cacaPalavraMatriz = criarCacaPalavras();
-
+    public static ArrayList listaPalavras = new ArrayList();
 
     public static char[][] criarCacaPalavras() {
 
@@ -27,6 +25,9 @@ public class formarSopaDeLetras {
         do {
             linhaMatriz = inserirPalavras.lerNumero("Insira o numero de linhas da Caça-Palavras");
             colunaMatriz = inserirPalavras.lerNumero("Insira o numero de colunas do Caça-Palavras");
+            if ((linhaMatriz * colunaMatriz) > numeroLetras) {
+                JOptionPane.showMessageDialog(null, "Numero de Letras Insuficeinte\nInsira novo tamnho da Matriz!", "Atenção", JOptionPane.ERROR_MESSAGE);
+            }
         } while ((linhaMatriz * colunaMatriz) > numeroLetras);
 
         char[][] cacaPalavrasTabela = new char[linhaMatriz][colunaMatriz];
@@ -42,10 +43,11 @@ public class formarSopaDeLetras {
     }
 
     public static void imprimirCacaPalavras() {
+        char[][] cacaPalavraMatriz = criarCacaPalavras();
         String strCacaPalavras = "", strNumerodePalavras;
         for (int i = 0; i < linhaMatriz; i++) {
             for (int j = 0; j < colunaMatriz; j++) {
-                strCacaPalavras = strCacaPalavras + " " + cacaPalavraMatriz[i][j];
+                strCacaPalavras = strCacaPalavras + "" + cacaPalavraMatriz[i][j];
             }
             strCacaPalavras = strCacaPalavras + "\n";
         }
@@ -54,21 +56,6 @@ public class formarSopaDeLetras {
                 + "\n\n"
                 + "\t Insira o numero de Letras para procurar\n");
         numeroPalavras = Integer.parseInt(strNumerodePalavras);
-        String listaPalavras[] = new String[numeroPalavras];
-        for(int i=0;i<numeroPalavras;i++)
-                listaPalavras[i]=""+inserirPalavras.inserirPalavras(numeroPalavras);
-        
-        procurarPalavras procurarPalavra = new procurarPalavras();
-        procurarPalavra.palavrasChaves(listaPalavras);
-         strNumerodePalavras = JOptionPane.showInputDialog("==== Olaaaaaaaaaaaaaaaa=====\n"
-                + strCacaPalavras
-                + "\n\n"
-                + "\t Insira o numero de Letras para procurar\n");
-          JOptionPane.showMessageDialog(null,"==== Localização =====\n"
-                + procurarPalavra.linhadoElementoQueConsta+" "+procurarPalavra.colunadoElementoQueConsta);
-       // procurarPalavra.verificaNoCacaPalavra();
-        /*JOptionPane.showMessageDialog(null,"==== Localização =====\n"
-                + procurarPalavra.linhadoElementoQueConsta+" "+procurarPalavra.colunadoElementoQueConsta);
-*/
+        listaPalavras = inserirPalavras.inserirPalavras(numeroPalavras);
     }
 }

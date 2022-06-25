@@ -20,7 +20,7 @@ public class lerFicheiro {
         BufferedReader ficheiroBuffered;
         
         try {
-            ficheiroReader = new FileReader("mensagemCriptada.txt");
+            ficheiroReader = new FileReader("palavras.txt");
             ficheiroBuffered = new BufferedReader(ficheiroReader);
             linhaTexto = ficheiroBuffered.readLine();
 

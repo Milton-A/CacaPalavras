@@ -16,7 +16,7 @@ public class escreverFicheiro {
 
     private static void gravarTexto(String texto) {
         PrintWriter escreverMensagemTexto;
-        File fich = new File(".txt");
+        File fich = new File("palavrasSaida.txt");
         try {
             escreverMensagemTexto = new PrintWriter(new FileWriter(fich, true));
             escreverMensagemTexto.print(texto);
