@@ -14,10 +14,9 @@ import javax.swing.JOptionPane;
 public class formarSopaDeLetras {
 
     public static int linhaMatriz, colunaMatriz;
-    public static  char[][] cacaPalavraMatriz = criarCacaPalavras();
+    public static char[][] cacaPalavraMatriz = criarCacaPalavras();
     public static int numeroPalavras;
-    public static ArrayList listaPalavras = new ArrayList();
-
+    public static ArrayList <String> listaPalavras = new ArrayList();
     public static char[][] criarCacaPalavras() {
 
         int numeroLetras = inserirPalavras.textoEntrada.length();
@@ -58,10 +57,10 @@ public class formarSopaDeLetras {
                 + "\t Insira o numero de Letras para procurar\n");
         numeroPalavras = Integer.parseInt(strNumerodePalavras);
         listaPalavras = inserirPalavras.inserirPalavras(numeroPalavras);
-        procurarPalavras procurarPalavra = new procurarPalavras();
-        procurarPalavra.verificaNoCacaPalavra();
-        JOptionPane.showMessageDialog(null,"==== Localização =====\n"
-                + procurarPalavra.linhadoElementoQueConsta+" "+procurarPalavra.colunadoElementoQueConsta);
+        procurarPalavras.palavrasChaves(listaPalavras);
+        procurarPalavras.verificaNoCacaPalavra();
+     //  JOptionPane.showMessageDialog(null, "==== Localização =====\n"
+       //         + procurarPalavras.linhadoElementoQueConsta + " " + procurarPalavras.colunadoElementoQueConsta);
 
     }
 }
