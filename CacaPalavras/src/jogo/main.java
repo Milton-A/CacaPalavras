@@ -66,7 +66,7 @@ public class main {
                     formarSopaDeLetras.imprimirCacaPalavras();
                     break;
                 case 2:
-                    
+
                     break;
 
                 default:

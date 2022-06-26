@@ -25,6 +25,7 @@ public class procurarPalavras {
     public static int colunadoElementoQueConsta = -1;
 
     public static void palavrasChaves(ArrayList<String> listaPalavras) {
+        contador = 0;
         for (String palavra : listaPalavras) {
             palavrasChaves[contador++] = palavra;
         }
@@ -57,8 +58,6 @@ public class procurarPalavras {
         for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
                 if (cacaPalavra[i][j] == palavrasChaves[k].charAt(0)) {
-                    JOptionPane.showMessageDialog(null, "==== Contador =====\n"
-                            + " " + tamanhoDoVetorDoPosicoesDasLetra + " " + contador + " " + x);
                     posicoesDasLetra[x][1] = j;
                     posicoesDasLetra[x][0] = i;
                     x++;
@@ -95,47 +94,47 @@ public class procurarPalavras {
                 verificarObliquaEsquerdaCima(palavrasChaves[i], j);
                 limparIsEqual();
                 verificarObliquaEsquerdaBaixo(palavrasChaves[i], j);
-
             }
-      JOptionPane.showMessageDialog(null, "==== Localização =====\n"
-                  + linhadoElementoQueConsta+"" + colunadoElementoQueConsta);
-        colunadoElementoQueConsta=linhadoElementoQueConsta=-1;
+            JOptionPane.showMessageDialog(null, "==== Localização =====\n"
+                    + linhadoElementoQueConsta + "" + colunadoElementoQueConsta);
+            colunadoElementoQueConsta = linhadoElementoQueConsta = -1;
 
         }
-       
 
     }
 
     private static void verificarHorizontalDireita(String chave, int i) {
-               int posicacaoDaLetraNaColuna ;
-        posicacaoDaLetraNaColuna  = (chave.length() - 2) + posicoesDasLetra[i][0];
-        if (posicacaoDaLetraNaColuna  < 0) 
+        int posicacaoDaLetraNaColuna;
+        posicacaoDaLetraNaColuna = (chave.length() - 1) + posicoesDasLetra[i][0];
+        if (posicacaoDaLetraNaColuna < 0) {
             posicacaoDaLetraNaColuna *= (-1);
-   
-        if (posicacaoDaLetraNaColuna  <= coluna) {
-            for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaColuna ; k++) {
+        }
+
+        if (posicacaoDaLetraNaColuna < coluna) {
+            for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaColuna; k++) {
                 isEqual = isEqual + "" + cacaPalavra[posicoesDasLetra[i][0]][k];
 
             }
         }
 
         if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+            if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                 colunadoElementoQueConsta = posicoesDasLetra[i][1];
                 linhadoElementoQueConsta = posicoesDasLetra[i][0];
-                   
+
             }
 
         }
     }
 
     private static void verificarVerticaCima(String chave, int i) {
-         int posicacaoDaLetraNaLinha;
-        posicacaoDaLetraNaLinha = (chave.length() - 2) + posicoesDasLetra[i][0];
-        if (posicacaoDaLetraNaLinha <= 0) 
+        int posicacaoDaLetraNaLinha;
+        posicacaoDaLetraNaLinha = (chave.length() - 1) - posicoesDasLetra[i][0];
+        if (posicacaoDaLetraNaLinha <= 0) {
             posicacaoDaLetraNaLinha *= (-1);
+        }
         if (posicacaoDaLetraNaLinha < linha) {
-            for (int k = posicoesDasLetra[i][0]; k <= posicacaoDaLetraNaLinha ; k++) {
+            for (int k = posicoesDasLetra[i][0]; k >= posicacaoDaLetraNaLinha; k--) {
                 isEqual = isEqual + "" + cacaPalavra[k][posicoesDasLetra[i][1]];
             }
             if (isEqual.equalsIgnoreCase(chave)) {
@@ -149,18 +148,18 @@ public class procurarPalavras {
 
     private static void verificarVerticalBaixo(String chave, int i) {
         int posicacaoDaLetraNaLinha;
-        posicacaoDaLetraNaLinha = (chave.length() - 2) - posicoesDasLetra[i][0];
-        if (posicacaoDaLetraNaLinha < 0) 
+        posicacaoDaLetraNaLinha = (chave.length() - 1) + posicoesDasLetra[i][0];
+        if (posicacaoDaLetraNaLinha < 0) {
             posicacaoDaLetraNaLinha *= (-1);
-        if ( posicacaoDaLetraNaLinha <= linha) {
-            for (int k = posicoesDasLetra[i][1]; k <=  posicacaoDaLetraNaLinha; k++) {
+        }
+        if (posicacaoDaLetraNaLinha < linha) {
+            for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaLinha; k++) {
                 isEqual = isEqual + "" + cacaPalavra[k][posicoesDasLetra[i][1]];
-                 
+
             }
-            JOptionPane.showMessageDialog(null, "==== Localização =====\n"
-                  + isEqual);
+
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
@@ -170,29 +169,27 @@ public class procurarPalavras {
 
     private static void verificarObliquaDireitaCima(String chave, int i) {
         contador = 0;
-         int posicacaoDaLetraNaLinha,valorColuna,valorLinha, posicacaoDaLetraNaColuna;
-        posicacaoDaLetraNaLinha = (chave.length() - 2) + posicoesDasLetra[i][0];
-        posicacaoDaLetraNaColuna = (chave.length() - 2) - posicoesDasLetra[i][1];
-        if (posicacaoDaLetraNaLinha < 0) 
+        int posicacaoDaLetraNaLinha, valorColuna, valorLinha, posicacaoDaLetraNaColuna;
+        posicacaoDaLetraNaLinha = (chave.length() - 1) - posicoesDasLetra[i][0];
+        posicacaoDaLetraNaColuna = (chave.length() - 1) + posicoesDasLetra[i][1];
+        if (posicacaoDaLetraNaColuna < 0) {
             posicacaoDaLetraNaLinha *= (-1);
-        if ((chave.length() - 2) - posicoesDasLetra[i][1] < 0) 
-            posicacaoDaLetraNaColuna  *= (-1);
-        if ( posicacaoDaLetraNaLinha < linha && posicacaoDaLetraNaColuna < coluna) {
-            for (int k = posicoesDasLetra[i][0]; k <= (chave.length() - 2) + posicoesDasLetra[i][0] && posicacaoDaLetraNaLinha <= linha && posicacaoDaLetraNaColuna <= coluna; k++) {
-               if (posicoesDasLetra[i][0] + 1 == k) {
-                    contador++;
-                }
-                    valorLinha = contador + posicoesDasLetra[i][0];
-                if (posicoesDasLetra[i][1] - contador < 0) {
-                    valorColuna = contador - posicoesDasLetra[i][1];
-                } else {
-                    valorColuna = posicoesDasLetra[i][1] - contador;
-                }
+        }
 
+        if (posicacaoDaLetraNaLinha < linha && posicacaoDaLetraNaColuna < coluna) {
+            for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaColuna; k++) {
+                valorColuna = contador + posicoesDasLetra[i][1];
+                if (posicoesDasLetra[i][0] - contador < 0) {
+                    valorLinha = contador - posicoesDasLetra[i][0];
+                } else {
+                    valorLinha = posicoesDasLetra[i][0] - contador;
+                }
+                contador++;
                 isEqual = isEqual + "" + cacaPalavra[valorLinha][valorColuna];
             }
+
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
@@ -204,26 +201,25 @@ public class procurarPalavras {
         contador = 0;
         int valorLinha, valorColuna;
         int posicacaoDaLetraNaLinha, posicacaoDaLetraNaColuna;
-        posicacaoDaLetraNaLinha = (chave.length() - 2)- posicoesDasLetra[i][0];
-        posicacaoDaLetraNaColuna = (chave.length() - 2) + posicoesDasLetra[i][1];
-        if ((chave.length() - 2) - posicoesDasLetra[i][0] < 0) 
-            posicacaoDaLetraNaLinha  *= (-1);;
-        if (posicacaoDaLetraNaLinha  < linha && posicacaoDaLetraNaColuna < coluna) {
-            for (int k = posicoesDasLetra[i][0]; k <= (chave.length() - 2) + posicoesDasLetra[i][0] && posicacaoDaLetraNaLinha <= linha && posicacaoDaLetraNaColuna <= coluna; k++) {
-                 if (posicoesDasLetra[i][0] + 1 == k) {
-                    contador++;
-                }
-                    valorColuna = contador + posicoesDasLetra[i][1];
-                if (posicoesDasLetra[i][0] - contador < 0) {
-                    valorLinha = contador - posicoesDasLetra[i][0];
+        posicacaoDaLetraNaLinha = (chave.length() - 1) + posicoesDasLetra[i][0];
+        posicacaoDaLetraNaColuna = (chave.length() - 1) - posicoesDasLetra[i][1];
+        if ((chave.length() - 1) - posicoesDasLetra[i][1] < 0) {
+            posicacaoDaLetraNaColuna *= (-1);
+        }
+        if (posicacaoDaLetraNaLinha < linha && posicacaoDaLetraNaColuna < coluna) {
+            for (int k = posicoesDasLetra[i][0]; k <= posicacaoDaLetraNaLinha; k++) {
+                valorLinha = contador + posicoesDasLetra[i][0];
+                if (posicoesDasLetra[i][1] - contador < 0) {
+                    valorColuna = contador - posicoesDasLetra[i][1];
                 } else {
-                    valorLinha = posicoesDasLetra[i][0] - contador;
+                    valorColuna = posicoesDasLetra[i][1] - contador;
                 }
-
+                contador++;
                 isEqual = isEqual + "" + cacaPalavra[valorLinha][valorColuna];
             }
+
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
@@ -235,17 +231,16 @@ public class procurarPalavras {
         int valorLinha, valorColuna;
         contador = 0;
         int posicacaoDaLetraNaLinha, posicacaoDaLetraNaColuna;
-        posicacaoDaLetraNaLinha = (chave.length() - 2) - posicoesDasLetra[i][0];
-        posicacaoDaLetraNaColuna = (chave.length() - 2) - posicoesDasLetra[i][1];
-        if (posicacaoDaLetraNaLinha < 0) 
+        posicacaoDaLetraNaLinha = (chave.length() - 1) - posicoesDasLetra[i][0];
+        posicacaoDaLetraNaColuna = (chave.length() - 1) - posicoesDasLetra[i][1];
+        if (posicacaoDaLetraNaLinha < 0) {
             posicacaoDaLetraNaLinha *= (-1);
-        if ((chave.length() - 2) - posicoesDasLetra[i][1] < 0) 
-            posicacaoDaLetraNaColuna  *= (-1);
-        if (posicacaoDaLetraNaLinha< linha && posicacaoDaLetraNaColuna < coluna) {
-            for (int k = posicoesDasLetra[i][0]; k <= posicacaoDaLetraNaLinha && posicacaoDaLetraNaLinha < linha && posicacaoDaLetraNaColuna < coluna; k++) {
-                if (posicoesDasLetra[i][0] + 1 == k) {
-                    contador++;
-                }
+        }
+        if ((chave.length() - 2) - posicoesDasLetra[i][1] < 0) {
+            posicacaoDaLetraNaColuna *= (-1);
+        }
+        if (posicacaoDaLetraNaLinha < linha && posicacaoDaLetraNaColuna < coluna) {
+            for (int k = posicacaoDaLetraNaLinha; k <= posicoesDasLetra[i][0]; k++) {
                 if (posicoesDasLetra[i][1] - contador < 0) {
                     valorColuna = contador - posicoesDasLetra[i][1];
                 } else {
@@ -256,31 +251,30 @@ public class procurarPalavras {
                 } else {
                     valorLinha = posicoesDasLetra[i][0] - contador;
                 }
-
+                contador++;
                 isEqual = isEqual + "" + cacaPalavra[valorLinha][valorColuna];
             }
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
-                
+
             }
         }
     }
 
     private static void verificarObliquaEsquerdaBaixo(String chave, int i) {
         contador = 0;
-        
-        if ((chave.length() - 2) + posicoesDasLetra[i][0] < linha && (chave.length() - 2) + posicoesDasLetra[i][1] < coluna) {
-            for (int k = posicoesDasLetra[i][0]; k <= (chave.length() - 2) + posicoesDasLetra[i][0]; k++) {
-                if (posicoesDasLetra[i][0] + 1 == k) {
-                    contador++;
-                }
+
+        if ((chave.length() - 1) + posicoesDasLetra[i][0] < linha && (chave.length() - 1) + posicoesDasLetra[i][1] < coluna) {
+            for (int k = posicoesDasLetra[i][0]; k <= (chave.length() - 1) + posicoesDasLetra[i][0]; k++) {
+
                 isEqual = isEqual + "" + cacaPalavra[posicoesDasLetra[i][0] + contador][posicoesDasLetra[i][1] + contador];
+                contador++;
             }
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
@@ -289,16 +283,18 @@ public class procurarPalavras {
     }
 
     private static void verificarHorizontalEsquerda(String chave, int i) {
-        int posicacaoDaLetraNaColuna ;
-        posicacaoDaLetraNaColuna  = (chave.length() - 2) - posicoesDasLetra[i][0];
-        if (posicacaoDaLetraNaColuna  < 0) 
+        int posicacaoDaLetraNaColuna;
+        posicacaoDaLetraNaColuna = (chave.length() - 1) - posicoesDasLetra[i][1];
+        if (posicacaoDaLetraNaColuna < 0) {
             posicacaoDaLetraNaColuna *= (-1);
-        if (posicacaoDaLetraNaColuna <= coluna) {
-            for (int k = posicoesDasLetra[i][1]; k >= 0; k--) {
-                isEqual = isEqual + "" + cacaPalavra[posicoesDasLetra[i][0]][k];
+        }
+        if (posicacaoDaLetraNaColuna < coluna) {
+            for (int k = posicoesDasLetra[i][1]; k >= posicacaoDaLetraNaColuna; k--) {
+                isEqual = isEqual + cacaPalavra[posicoesDasLetra[i][0]][k];
             }
+
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0]|| linhadoElementoQueConsta==-1&&colunadoElementoQueConsta==-1) {
+                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
                     colunadoElementoQueConsta = posicoesDasLetra[i][1];
                     linhadoElementoQueConsta = posicoesDasLetra[i][0];
                 }
