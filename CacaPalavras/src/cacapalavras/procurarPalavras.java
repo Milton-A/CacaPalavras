@@ -1,7 +1,5 @@
 package cacapalavras;
 
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import sopadeletras.formarSopaDeLetras;
 
 /**
@@ -13,29 +11,24 @@ import sopadeletras.formarSopaDeLetras;
  */
 public class procurarPalavras {
 
-    private static int coluna = formarSopaDeLetras.colunaMatriz;
-    private static int linha = formarSopaDeLetras.linhaMatriz;
-    static char cacaPalavra[][] = formarSopaDeLetras.cacaPalavraMatriz;
-    private static int tamanhoDoVetor = formarSopaDeLetras.listaPalavras.toArray().length;
+    public static int coluna = formarSopaDeLetras.colunaMatriz;
+    public static int linha = formarSopaDeLetras.linhaMatriz;
+    static char cacaPalavra[][];
     private static int tamanhoDoVetorDoPosicoesDasLetra = 0;
     private static int contador = 0;
-    private static String isEqual = "";
+    private static String isEqual = "", coordenadasSaida = "";
     private static int x = 0;
-    public static int linhadoElementoQueConsta = -1;
-    public static int colunadoElementoQueConsta = -1;
+    private static String palavrasChaves[];
+    private static int posicoesDasLetra[][];
 
-    public static void palavrasChaves(ArrayList<String> listaPalavras) {
-        contador = 0;
-        for (String palavra : listaPalavras) {
-            palavrasChaves[contador++] = palavra;
-        }
+    public static int linhaDoElementoQueConsta = -1;
+    public static int colunaDoElementoQueConsta = -1;
+
+    public static void palavraChaves(String[] listaPalavras) {
+        palavrasChaves = listaPalavras;
+        cacaPalavra = formarSopaDeLetras.cacaPalavraMatriz;
         contador = 0;
     }
-
-    public static void setTamanho(int valor) {
-        tamanhoDoVetor = valor;
-    }
-    private static String palavrasChaves[] = new String[tamanhoDoVetor];
 
     public static void limparIsEqual() {
         isEqual = "";
@@ -50,7 +43,6 @@ public class procurarPalavras {
             }
         }
     }
-    private static int posicoesDasLetra[][];
 
     private static void armazenarAsPosicoes(int k) {
         contador = 0;
@@ -61,23 +53,20 @@ public class procurarPalavras {
                     posicoesDasLetra[x][1] = j;
                     posicoesDasLetra[x][0] = i;
                     x++;
-
                 }
-
             }
-
         }
     }
 
-    public static void verificaNoCacaPalavra() {
-        /*JOptionPane.showMessageDialog(null, "==== Localização =====\n"
-               + linhadoElementoQueConsta + " " + colunadoElementoQueConsta);
-              JOptionPane.showMessageDialog(null, "==== Localização =====\n"+
-                         palavrasChaves[0]);*/
-        for (int i = 0; i < tamanhoDoVetor; i++) {
+    public static void verificaNoCacaPalavra(String[] listaPalavras) {
+        String posicoes = "";
+        palavraChaves(listaPalavras);
+        int i = 0;
+        for (i = 0; i < palavrasChaves.length; i++) {
             tamnhoQueSeraArmazenado(i);
             posicoesDasLetra = new int[tamanhoDoVetorDoPosicoesDasLetra][2];
             armazenarAsPosicoes(i);
+
             for (int j = 0; j < tamanhoDoVetorDoPosicoesDasLetra; j++) {
                 verificarHorizontalEsquerda(palavrasChaves[i], j);
                 limparIsEqual();
@@ -95,21 +84,28 @@ public class procurarPalavras {
                 limparIsEqual();
                 verificarObliquaEsquerdaBaixo(palavrasChaves[i], j);
             }
-            JOptionPane.showMessageDialog(null, "==== Localização =====\n"
-                    + linhadoElementoQueConsta + "" + colunadoElementoQueConsta);
-            colunadoElementoQueConsta = linhadoElementoQueConsta = -1;
-
+            if (linhaDoElementoQueConsta != -1 && colunaDoElementoQueConsta != -1) {
+                posicoes = (linhaDoElementoQueConsta + 1) + " " + (1 + colunaDoElementoQueConsta) + "\n";
+                coordenadasSaida = coordenadasSaida + posicoes;
+            }
+            colunaDoElementoQueConsta = linhaDoElementoQueConsta = -1;
+            if (i + 1 == palavrasChaves.length) {
+                coordenadasSaida = coordenadasSaida + "\n";
+            }
         }
 
     }
 
+    public static String apresentarSaidas() {
+        return coordenadasSaida;
+    }
+
     private static void verificarHorizontalDireita(String chave, int i) {
         int posicacaoDaLetraNaColuna;
-        posicacaoDaLetraNaColuna = (chave.length() - 1) + posicoesDasLetra[i][0];
+        posicacaoDaLetraNaColuna = (chave.length() - 1) + posicoesDasLetra[i][1];
         if (posicacaoDaLetraNaColuna < 0) {
             posicacaoDaLetraNaColuna *= (-1);
         }
-
         if (posicacaoDaLetraNaColuna < coluna) {
             for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaColuna; k++) {
                 isEqual = isEqual + "" + cacaPalavra[posicoesDasLetra[i][0]][k];
@@ -118,9 +114,9 @@ public class procurarPalavras {
         }
 
         if (isEqual.equalsIgnoreCase(chave)) {
-            if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                linhadoElementoQueConsta = posicoesDasLetra[i][0];
+            if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                linhaDoElementoQueConsta = posicoesDasLetra[i][0];
 
             }
 
@@ -138,9 +134,10 @@ public class procurarPalavras {
                 isEqual = isEqual + "" + cacaPalavra[k][posicoesDasLetra[i][1]];
             }
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] && linhadoElementoQueConsta < posicoesDasLetra[i][0]) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }
@@ -153,15 +150,16 @@ public class procurarPalavras {
             posicacaoDaLetraNaLinha *= (-1);
         }
         if (posicacaoDaLetraNaLinha < linha) {
-            for (int k = posicoesDasLetra[i][1]; k <= posicacaoDaLetraNaLinha; k++) {
+            for (int k = posicoesDasLetra[i][0]; k <= posicacaoDaLetraNaLinha; k++) {
                 isEqual = isEqual + "" + cacaPalavra[k][posicoesDasLetra[i][1]];
 
             }
 
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }
@@ -189,9 +187,10 @@ public class procurarPalavras {
             }
 
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }
@@ -219,9 +218,10 @@ public class procurarPalavras {
             }
 
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }
@@ -255,9 +255,10 @@ public class procurarPalavras {
                 isEqual = isEqual + "" + cacaPalavra[valorLinha][valorColuna];
             }
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
 
             }
@@ -274,9 +275,10 @@ public class procurarPalavras {
                 contador++;
             }
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }
@@ -294,9 +296,10 @@ public class procurarPalavras {
             }
 
             if (isEqual.equalsIgnoreCase(chave)) {
-                if (colunadoElementoQueConsta < posicoesDasLetra[i][1] || linhadoElementoQueConsta < posicoesDasLetra[i][0] || linhadoElementoQueConsta == -1 && colunadoElementoQueConsta == -1) {
-                    colunadoElementoQueConsta = posicoesDasLetra[i][1];
-                    linhadoElementoQueConsta = posicoesDasLetra[i][0];
+                if (colunaDoElementoQueConsta < posicoesDasLetra[i][1] && linhaDoElementoQueConsta < posicoesDasLetra[i][0] || linhaDoElementoQueConsta == -1 && colunaDoElementoQueConsta == -1) {
+                    colunaDoElementoQueConsta = posicoesDasLetra[i][1];
+                    linhaDoElementoQueConsta = posicoesDasLetra[i][0];
+
                 }
             }
         }

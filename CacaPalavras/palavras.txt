@@ -1,0 +1,26 @@
+2
+
+8 11
+a a c d e f g h i g g
+h n j p r o g r a m a
+a g u a k a o o s i t
+w u l k v k f l m c n
+f l q o g a y w i h d
+b a a v x j n s u p w
+s r r a e t y b h r b
+y u i q l x c n b j f
+4
+programa
+java
+angular
+byte
+
+5 6
+e h i u s s
+g l t o p z
+h t i m m x
+s o w h l r
+h t m l w l
+2
+html
+while

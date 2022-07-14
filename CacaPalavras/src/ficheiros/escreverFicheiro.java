@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -14,12 +16,18 @@ import java.io.PrintWriter;
  */
 public class escreverFicheiro {
 
-    private static void gravarTexto(String texto) {
+     public static void gravarTextoString(String coordenadasSaida) {
         PrintWriter escreverMensagemTexto;
-        File fich = new File("palavrasSaida.txt");
+        DateTimeFormatter dia = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        
+        String nomeFicheiro = dia.format(LocalDateTime.now());
+        nomeFicheiro = nomeFicheiro.replaceAll("/", "_");
+        nomeFicheiro = nomeFicheiro.replaceAll(":", "_");
+
+        File fich = new File(nomeFicheiro + ".txt");
         try {
             escreverMensagemTexto = new PrintWriter(new FileWriter(fich, true));
-            escreverMensagemTexto.print(texto);
+            escreverMensagemTexto.println(coordenadasSaida );
             escreverMensagemTexto.close();
         } catch (IOException ex) {
             ex.printStackTrace();
